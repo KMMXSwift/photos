@@ -8,28 +8,67 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
-
-    override func viewDidLoad() {
+class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+{
+    @IBOutlet weak var tableView: UITableView!
+    
+    let downloadQueue = dispatch_queue_create("downloadQueue", DISPATCH_QUEUE_CONCURRENT)
+    
+    let photos = Photo.getPhotos()
+    let cache = NSCache()
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if let photos = self.photos
+        {
+            return photos.count
+        }
+        
+        return 0
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell") as! PhotoTableViewCell
+        
+        if let photo = photos?[indexPath.row]
+        {
+            cell.nameLabel.text = photo.name
+            
+            if let cacheImage = cache.objectForKey(indexPath.row) as? UIImage
+            {
+                cell.photoImageView.image = cacheImage
+            }
+            else
+            {
+                cell.activityIndicator.startAnimating()
+                
+                dispatch_async(downloadQueue, { () -> Void in
+                    
+                    if let image = Photo.cachePhoto(photo)
+                    {
+                        self.cache.setObject(image, forKey: indexPath.row)
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            cell.photoImageView.image = image
+                            cell.activityIndicator.stopAnimating()
+                        })
+                    }
+                })
+            }
+        }
+        
+        return cell
     }
-    */
-
+    
+    override func didReceiveMemoryWarning()
+    {
+        super.didReceiveMemoryWarning()
+    }
 }
