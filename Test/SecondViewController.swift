@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let downloadQueue = dispatch_queue_create("downloadQueue", DISPATCH_QUEUE_CONCURRENT)
     
@@ -22,7 +23,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if let photos = self.photos
@@ -37,33 +38,77 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell") as! PhotoTableViewCell
         
-        if let photo = photos?[indexPath.row]
+        cellData(indexPath.row, cell: cell)
+
+        return cell
+    }
+    
+    func cellData(index: Int, cell: UIView)
+    {
+        if let photo = photos?[index]
         {
-            cell.nameLabel.text = photo.name
-            
-            if let cacheImage = cache.objectForKey(indexPath.row) as? UIImage
+            if let cacheImage = cache.objectForKey(index) as? UIImage
             {
-                cell.photoImageView.image = cacheImage
+                if let cell = cell as? PhotoTableViewCell
+                {
+                    cell.nameLabel.text = photo.name
+                    cell.photoImageView.image = cacheImage
+                }
+                else if let cell = cell as? PhotoCollectionViewCell
+                {
+                    cell.imageView.image = cacheImage
+                }
             }
             else
             {
-                cell.activityIndicator.startAnimating()
+                if let cell = cell as? PhotoTableViewCell
+                {
+                    cell.activityIndicator.startAnimating()
+                }
+                else if let cell = cell as? PhotoCollectionViewCell
+                {
+                    cell.activityIndicator.startAnimating()
+                }
                 
                 dispatch_async(downloadQueue, { () -> Void in
                     
                     if let image = Photo.cachePhoto(photo)
                     {
-                        self.cache.setObject(image, forKey: indexPath.row)
+                        self.cache.setObject(image, forKey: index)
                         
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            cell.photoImageView.image = image
-                            cell.activityIndicator.stopAnimating()
+                            
+                            if let cell = cell as? PhotoTableViewCell
+                            {
+                                cell.photoImageView.image = image
+                                cell.activityIndicator.stopAnimating()
+                            }
+                            else if let cell = cell as? PhotoCollectionViewCell
+                            {
+                                cell.imageView.image = image
+                                cell.activityIndicator.stopAnimating()
+                            }
                         })
                     }
                 })
             }
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        if let photos = self.photos
+        {
+            return photos.count
+        }
         
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
+        cellData(indexPath.item, cell: cell)
         return cell
     }
     

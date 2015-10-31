@@ -51,12 +51,13 @@ class Photo: NSObject
         return nil
     }
     
-    class func downloadPhoto(photo: Photo) -> UIImage?
+    class func downloadPhoto(photo: Photo, path: String) -> UIImage?
     {
         if let url = NSURL(string: photo.uri)
         {
             if let data = NSData(contentsOfURL: url)
             {
+                data.writeToFile(path, atomically: true)
                 return UIImage(data: data)
             }
         }
@@ -79,7 +80,7 @@ class Photo: NSObject
                 }
                 else
                 {
-                    return downloadPhoto(photo)
+                    return downloadPhoto(photo, path: path)
                 }
             }
         }
