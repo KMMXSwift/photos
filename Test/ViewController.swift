@@ -8,18 +8,38 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
+class ViewController: UIViewController, UITextFieldDelegate
+{
+    @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var button: UIButton!
+    
+    var focusedView: UITextField?
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
+    @IBAction func changeText(sender: UIButton)
+    {
+        helloLabel.text = textField.text
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField)
+    {
+        focusedView = textField
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        focusedView?.resignFirstResponder()
+        
+        return true
+    }
+    
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
-
