@@ -112,6 +112,21 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if (segue.identifier == "WebSegue")
+        {
+            if let indexPath = collectionView.indexPathsForSelectedItems()?.first
+            {
+                if let photo = photos?[indexPath.item]
+                {
+                    let vc = segue.destinationViewController as! WebViewController
+                    vc.url = NSURL(string: photo.uri)
+                }
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
