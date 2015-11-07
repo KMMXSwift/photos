@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Prague_Montage.jpg/846px-Prague_Montage.jpg</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Prague</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Collage_Firenze.jpg/1365px-Collage_Firenze.jpg</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Firenze</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Rotterdam_vanaf_de_Euromast_%285088248387%29.jpg/1920px-Rotterdam_vanaf_de_Euromast_%285088248387%29.jpg</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Rotterdam</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/0/03/Bristol_Council_House_-_geograph.org.uk_-_197619.jpg</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Bristol</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Théophile-Alexandre_Steinlen_-_Tournée_du_Chat_Noir_de_Rodolphe_Salis_%28Tour_of_Rodolphe_Salis%27_Chat_Noir%29_-_Google_Art_Project.jpg/728px-Théophile-Alexandre_Steinlen_-_Tournée_du_Chat_Noir_de_Rodolphe_Salis_%28Tour_of_Rodolphe_Salis%27_Chat_Noir%29_-_Google_Art_Project.jpg</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Montmartre</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Deutschland_Heidelberg_Schloss.JPG/1542px-Deutschland_Heidelberg_Schloss.JPG</string>
+		<key>uri</key>
+		<string>https://en.m.wikipedia.org/wiki/Heidelberg</string>
+	</dict>
+</array>
+</plist>

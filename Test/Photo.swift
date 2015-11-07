@@ -25,7 +25,6 @@ class Photo: NSObject
     class func getPhotos(name: String = "images") -> [Photo]?
     {
         let path = NSBundle.mainBundle().URLForResource(name, withExtension: "plist")
-        print(path)
         
         if let url = path
         {
@@ -34,6 +33,8 @@ class Photo: NSObject
                 let photos: [Photo] = database.map({
                     if let url = NSURL(string: $0)
                     {
+                        print("URL: \(url)")
+                        
                         let photo = Photo(name: url.lastPathComponent, uri: $0)
                         return photo
                     }
