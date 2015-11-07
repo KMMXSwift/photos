@@ -11,6 +11,8 @@
 		8C38347E1BEE557000AAD757 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C38347D1BEE557000AAD757 /* ThirdViewController.swift */; };
 		8C3834801BEE688300AAD757 /* wikipedia.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C38347F1BEE688300AAD757 /* wikipedia.plist */; };
 		8C3834821BEE772100AAD757 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3834811BEE772100AAD757 /* WebViewController.swift */; };
+		8C3834841BEE895400AAD757 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3834831BEE895400AAD757 /* MapViewController.swift */; };
+		8C3834861BEE8A0700AAD757 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3834851BEE8A0700AAD757 /* MapKit.framework */; };
 		8C6446381BDBD92100676F82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6446371BDBD92100676F82 /* AppDelegate.swift */; };
 		8C64463A1BDBD92100676F82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6446391BDBD92100676F82 /* ViewController.swift */; };
 		8C64463D1BDBD92100676F82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C64463B1BDBD92100676F82 /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 		8C38347D1BEE557000AAD757 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		8C38347F1BEE688300AAD757 /* wikipedia.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wikipedia.plist; sourceTree = "<group>"; };
 		8C3834811BEE772100AAD757 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		8C3834831BEE895400AAD757 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8C3834851BEE8A0700AAD757 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8C6446341BDBD92100676F82 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C6446371BDBD92100676F82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C6446391BDBD92100676F82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C3834861BEE8A0700AAD757 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +59,7 @@
 		8C64462B1BDBD92100676F82 = {
 			isa = PBXGroup;
 			children = (
+				8C3834851BEE8A0700AAD757 /* MapKit.framework */,
 				8C6446361BDBD92100676F82 /* Test */,
 				8C6446351BDBD92100676F82 /* Products */,
 			);
@@ -84,6 +90,7 @@
 				8C38347D1BEE557000AAD757 /* ThirdViewController.swift */,
 				8C38347F1BEE688300AAD757 /* wikipedia.plist */,
 				8C3834811BEE772100AAD757 /* WebViewController.swift */,
+				8C3834831BEE895400AAD757 /* MapViewController.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -120,6 +127,11 @@
 					8C6446331BDBD92100676F82 = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = ZDDM7D89C7;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -165,6 +177,7 @@
 				8CDE22651BE51732009D9216 /* Photo.swift in Sources */,
 				8C1DE0A41BDBF707006430F1 /* SecondViewController.swift in Sources */,
 				8C38347E1BEE557000AAD757 /* ThirdViewController.swift in Sources */,
+				8C3834841BEE895400AAD757 /* MapViewController.swift in Sources */,
 				8C64463A1BDBD92100676F82 /* ViewController.swift in Sources */,
 				8C6446381BDBD92100676F82 /* AppDelegate.swift in Sources */,
 				8C6E8E821BE54EA00075C00E /* PhotoCollectionViewCell.swift in Sources */,
@@ -283,6 +296,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kmmx.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -295,6 +309,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kmmx.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";

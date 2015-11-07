@@ -7,13 +7,49 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ThirdViewController: UIViewController {
+class ThirdViewController: UIViewController, CLLocationManagerDelegate
+{
+    @IBOutlet weak var coordinateLabel: UILabel!
+
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)
+        {
+            locationManager.startUpdatingLocation()
+        }
+        else
+        {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
+        switch (status)
+        {
+        case .AuthorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        default:
+            print("User didn't authorize location use :(")
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        if let location = locations.first
+        {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.coordinateLabel.text = "Lat: \(location.coordinate.latitude) long: \(location.coordinate.longitude)"
+            })
+        }
     }
     
     override func viewDidAppear(animated: Bool)

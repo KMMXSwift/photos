@@ -40,9 +40,32 @@ class WebViewController: UIViewController, UIWebViewDelegate
             */
             
             webView.loadRequest(request)
+            
+            self.title = "\(url)"
         }
     }
 
+    @IBAction func share(sender: UIBarButtonItem)
+    {
+        if let url = url
+        {
+            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            self.presentViewController(activityVC, animated: true, completion: nil)
+        }
+        else
+        {
+            let alertVC = UIAlertController(title: "Invalid URL", message: "Check if your URL is valid.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let okay = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action: UIAlertAction) -> Void in
+                
+            })
+            
+            alertVC.addAction(okay)
+            
+            self.presentViewController(alertVC, animated: true, completion: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
