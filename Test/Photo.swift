@@ -24,6 +24,21 @@ class Photo: NSObject
         self.uri = uri
     }
     
+    convenience init(coder decoder: NSCoder)
+    {
+        self.init()
+        self.name = decoder.decodeObjectForKey("name") as? String
+        self.imageURI = decoder.decodeObjectForKey("imageURI") as! String
+        self.uri = decoder.decodeObjectForKey("uri") as! String
+    }
+    
+    func encodeWithCoder(coder: NSCoder)
+    {
+        coder.encodeObject(name, forKey: "name")
+        coder.encodeObject(imageURI, forKey: "imageURI")
+        coder.encodeObject(uri, forKey: "uri")
+    }
+    
     class func getPhotos(name: String = "wikipedia") -> [Photo]?
     {
         let path = NSBundle.mainBundle().URLForResource(name, withExtension: "plist")

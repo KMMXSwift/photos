@@ -8,6 +8,7 @@
 
 import UIKit
 import MobileCoreServices
+import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
@@ -20,6 +21,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        if let url = NSBundle.mainBundle().URLForResource("music", withExtension: "m4a")
+        {
+            let playerItem = AVPlayerItem(URL: url)
+            let player = AVPlayer(playerItem: playerItem)
+            player.play()
+        }
+
     }
 
     @IBAction func changeText(sender: UIButton)

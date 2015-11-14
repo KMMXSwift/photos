@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import CoreMotion
 
-class ThirdViewController: UIViewController, CLLocationManagerDelegate
+class ThirdViewController: UIViewController, CLLocationManagerDelegate, HelloMars, Hello
 {
     @IBOutlet weak var coordinateLabel: UILabel!
     @IBOutlet weak var gyroscopeLabel: UILabel!
@@ -33,6 +33,8 @@ class ThirdViewController: UIViewController, CLLocationManagerDelegate
         else
         {
             locationManager.requestWhenInUseAuthorization()
+            helloMars()
+            helloWorld()
         }
     }
     

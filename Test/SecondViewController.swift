@@ -15,23 +15,44 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     let downloadQueue = dispatch_queue_create("downloadQueue", DISPATCH_QUEUE_CONCURRENT)
     
-    let photos = Photo.getPhotos()
+    var photos: [Photo] = []
     let cache = NSCache()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        if let caches = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+        {
+            let fileURL = NSURL(fileURLWithPath: caches).URLByAppendingPathComponent("photos.sicop")
+            
+            if (NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!))
+            {
+                if let photos = NSKeyedUnarchiver.unarchiveObjectWithFile(fileURL.path!) as? [Photo]
+                {
+                    self.photos = photos
+                    tableView.reloadData()
+                    collectionView.reloadData()
+                }
+            }
+            else
+            {
+                if let photos = Photo.getPhotos()
+                {
+                    self.photos = photos
+                    tableView.reloadData()
+                    collectionView.reloadData()
+                    
+                    let saved = NSKeyedArchiver.archiveRootObject(photos, toFile: fileURL.path!)
+                    print("Saved photos: \(saved)")
+                }
+            }
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if let photos = self.photos
-        {
-            return photos.count
-        }
-        
-        return 0
+        return photos.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -39,70 +60,64 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell") as! PhotoTableViewCell
         
         cellData(indexPath.row, cell: cell)
-
+        
         return cell
     }
     
     func cellData(index: Int, cell: UIView)
     {
-        if let photo = photos?[index]
+        let photo = photos[index]
+        
+        if let cacheImage = cache.objectForKey(index) as? UIImage
         {
-            if let cacheImage = cache.objectForKey(index) as? UIImage
+            if let cell = cell as? PhotoTableViewCell
             {
-                if let cell = cell as? PhotoTableViewCell
-                {
-                    cell.nameLabel.text = photo.name
-                    cell.photoImageView.image = cacheImage
-                }
-                else if let cell = cell as? PhotoCollectionViewCell
-                {
-                    cell.imageView.image = cacheImage
-                }
+                cell.nameLabel.text = photo.name
+                cell.photoImageView.image = cacheImage
             }
-            else
+            else if let cell = cell as? PhotoCollectionViewCell
             {
-                if let cell = cell as? PhotoTableViewCell
-                {
-                    cell.activityIndicator.startAnimating()
-                }
-                else if let cell = cell as? PhotoCollectionViewCell
-                {
-                    cell.activityIndicator.startAnimating()
-                }
+                cell.imageView.image = cacheImage
+            }
+        }
+        else
+        {
+            if let cell = cell as? PhotoTableViewCell
+            {
+                cell.activityIndicator.startAnimating()
+            }
+            else if let cell = cell as? PhotoCollectionViewCell
+            {
+                cell.activityIndicator.startAnimating()
+            }
+            
+            dispatch_async(downloadQueue, { () -> Void in
                 
-                dispatch_async(downloadQueue, { () -> Void in
+                if let image = Photo.cachePhoto(photo)
+                {
+                    self.cache.setObject(image, forKey: index)
                     
-                    if let image = Photo.cachePhoto(photo)
-                    {
-                        self.cache.setObject(image, forKey: index)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            
-                            if let cell = cell as? PhotoTableViewCell
-                            {
-                                cell.photoImageView.image = image
-                                cell.activityIndicator.stopAnimating()
-                            }
-                            else if let cell = cell as? PhotoCollectionViewCell
-                            {
-                                cell.imageView.image = image
-                                cell.activityIndicator.stopAnimating()
-                            }
-                        })
-                    }
-                })
-            }
+                        if let cell = cell as? PhotoTableViewCell
+                        {
+                            cell.photoImageView.image = image
+                            cell.activityIndicator.stopAnimating()
+                        }
+                        else if let cell = cell as? PhotoCollectionViewCell
+                        {
+                            cell.imageView.image = image
+                            cell.activityIndicator.stopAnimating()
+                        }
+                    })
+                }
+            })
         }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if let photos = self.photos
-        {
-            return photos.count
-        }
-        
-        return 0
+        return photos.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
@@ -118,11 +133,9 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         {
             if let indexPath = collectionView.indexPathsForSelectedItems()?.first
             {
-                if let photo = photos?[indexPath.item]
-                {
-                    let vc = segue.destinationViewController as! WebViewController
-                    vc.url = NSURL(string: photo.uri)
-                }
+                let photo = photos[indexPath.item]
+                let vc = segue.destinationViewController as! WebViewController
+                vc.url = NSURL(string: photo.uri)
             }
         }
     }
