@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class ViewController: UIViewController, UITextFieldDelegate
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
@@ -36,6 +37,57 @@ class ViewController: UIViewController, UITextFieldDelegate
         focusedView?.resignFirstResponder()
         
         return true
+    }
+    
+    @IBAction func takeAPicture(sender: UIButton)
+    {
+        let imagePickerVC = UIImagePickerController()
+        imagePickerVC.delegate = self
+        
+        if let availableModes = UIImagePickerController.availableCaptureModesForCameraDevice(UIImagePickerControllerCameraDevice.Rear)
+        {
+            if (availableModes.count > 0)
+            {
+                if (availableModes.contains(UIImagePickerControllerCameraCaptureMode.Photo.rawValue))
+                {
+                    imagePickerVC.sourceType = UIImagePickerControllerSourceType.Camera
+                    //imagePickerVC.mediaTypes = [String(kUTTypeMovie)]
+                    imagePickerVC.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+                    imagePickerVC.cameraDevice = UIImagePickerControllerCameraDevice.Rear
+                    imagePickerVC.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Auto
+                }
+            }
+        }
+        
+        self.presentViewController(imagePickerVC, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
+    {
+        /*
+        if let documents = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+        {
+            let url = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("picture.png")
+            let saved = UIImagePNGRepresentation(image)?.writeToURL(url, atomically: true)
+            
+            print("Saved image: \(saved)")
+        }
+        */
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func didFinishSaving()
+    {
+        print("Saved to photos album")
+    }
+    
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func didReceiveMemoryWarning()

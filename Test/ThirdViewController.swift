@@ -8,12 +8,17 @@
 
 import UIKit
 import CoreLocation
+import CoreMotion
 
 class ThirdViewController: UIViewController, CLLocationManagerDelegate
 {
     @IBOutlet weak var coordinateLabel: UILabel!
-
+    @IBOutlet weak var gyroscopeLabel: UILabel!
+    @IBOutlet weak var accelerometerLabel: UILabel!
+    
     let locationManager = CLLocationManager()
+    let motionManager = CMMotionManager()
+    let motionQueue = NSOperationQueue()
     
     override func viewDidLoad()
     {
@@ -72,15 +77,70 @@ class ThirdViewController: UIViewController, CLLocationManagerDelegate
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("animatePinch:"))
         childView.addGestureRecognizer(pinchGestureRecognizer)
+        
+        motionManager.accelerometerUpdateInterval = 2.0
+        
+        motionManager.startAccelerometerUpdatesToQueue(motionQueue) { (data: CMAccelerometerData?, error: NSError?) -> Void in
+            
+            if let error = error
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.accelerometerLabel.text = error.debugDescription
+                })
+            }
+            else if let data = data
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.accelerometerLabel.text = "X: \(data.acceleration.x) Y: \(data.acceleration.y) Z: \(data.acceleration.z)"
+                })
+            }
+        }
+        
+        motionManager.gyroUpdateInterval = 2.0
+        
+        motionManager.startGyroUpdatesToQueue(motionQueue) { (data: CMGyroData?, error: NSError?) -> Void in
+            
+            if let error = error
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.gyroscopeLabel.text = error.debugDescription
+                })
+            }
+            else
+            {
+                if let data = data
+                {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.gyroscopeLabel.text = "X: \(data.rotationRate.x) Y: \(data.rotationRate.y) Z: \(data.rotationRate.z)"
+                    })
+                }
+            }
+        }
     }
     
     func animate(sender: UITapGestureRecognizer)
     {
+        /*
         if let view = sender.view
         {
-            UIView.animateWithDuration(5.0) { () -> Void in
-                view.center = self.view.frame.origin
-            }
+        UIView.animateWithDuration(5.0) { () -> Void in
+        view.center = self.view.frame.origin
+        }
+        }
+        */
+        
+        if let animatedView = sender.view
+        {
+            let fromValue = NSValue(CGPoint: animatedView.layer.position)
+            let toValue = NSValue(CGPoint: view.frame.origin)
+            
+            let animation = CABasicAnimation(keyPath: "position")
+            animation.fromValue = fromValue
+            animation.toValue = toValue
+            animation.duration = 5.0
+            animatedView.layer.addAnimation(animation, forKey: "position")
+            
+            animatedView.center = toValue.CGPointValue()
         }
     }
     
