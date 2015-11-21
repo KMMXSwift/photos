@@ -10,8 +10,9 @@ import UIKit
 import MediaPlayer
 import AVKit
 import AVFoundation
+import MessageUI
 
-class VideoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class VideoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate, MFMailComposeViewControllerDelegate
 {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var songsTableView: UITableView!
@@ -21,9 +22,29 @@ class VideoViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var songs: [MPMediaItem] = []
     
+    var audioPlayer: AVAudioPlayer?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        do
+        {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            if let url = NSBundle.mainBundle().URLForResource("music", withExtension: "m4a")
+            {
+                self.audioPlayer = try AVAudioPlayer(contentsOfURL: url)
+                self.audioPlayer?.prepareToPlay()
+                self.audioPlayer?.play()
+            }
+        }
+            
+        catch
+        {
+            print("AVAudioSession setup failed")
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -84,6 +105,46 @@ class VideoViewController: UIViewController, UITableViewDataSource, UITableViewD
         musicPlayer.play()
         
         playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+    }
+    
+    @IBAction func shareVideo(sender: UIBarButtonItem)
+    {
+        let user = (body: "Hello! This is a test.", subject: "KMMX", recipients: ["me@richiereyes.com"])
+        
+        let vc = MFMailComposeViewController()
+        vc.mailComposeDelegate = self
+        vc.setMessageBody(user.body, isHTML: false)
+        vc.setSubject(user.subject)
+        vc.setToRecipients(user.recipients)
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func powers(tuple: (a: Float, b: Float, c: Float)) -> (square: Float, cubed: Float, fourth: Float)
+    {
+        let square = pow(tuple.a, 2.0)
+        let cubed = pow(tuple.b, 3.0)
+        let fourth = pow(tuple.c, 4.0)
+        
+        return (square, cubed, fourth)
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?)
+    {
+        switch (result)
+        {
+        case MFMailComposeResultCancelled:
+            print("Cancelled")
+        case MFMailComposeResultFailed:
+            print("Failed")
+        case MFMailComposeResultSaved:
+            print("Saved")
+        case MFMailComposeResultSent:
+            print("Sent")
+        default:
+            print("Default")
+        }
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func next(sender: UIButton)

@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol SecondViewControllerDelegate
+{
+    func didSelectItem(name: String)
+}
+
 class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
@@ -18,9 +23,16 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var photos: [Photo] = []
     let cache = NSCache()
     
+    var delegate: SecondViewControllerDelegate?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        if let name = NSUserDefaults.standardUserDefaults().objectForKey("name") as? String
+        {
+            print("User defaults: \(name)")
+        }
         
         if let caches = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
         {
@@ -125,6 +137,16 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         cellData(indexPath.item, cell: cell)
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        let photo = photos[indexPath.item]
+        
+        if let name = photo.name
+        {
+            delegate?.didSelectItem(name)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)

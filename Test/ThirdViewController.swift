@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import CoreMotion
 
-class ThirdViewController: UIViewController, CLLocationManagerDelegate, HelloMars, Hello
+class ThirdViewController: UIViewController, CLLocationManagerDelegate
 {
     @IBOutlet weak var coordinateLabel: UILabel!
     @IBOutlet weak var gyroscopeLabel: UILabel!
@@ -33,8 +33,6 @@ class ThirdViewController: UIViewController, CLLocationManagerDelegate, HelloMar
         else
         {
             locationManager.requestWhenInUseAuthorization()
-            helloMars()
-            helloWorld()
         }
     }
     
@@ -72,6 +70,17 @@ class ThirdViewController: UIViewController, CLLocationManagerDelegate, HelloMar
         childView.layer.shadowOpacity = 0.5
         childView.layer.shadowRadius = 2.0
         view.addSubview(childView)
+        
+        let center = CGPoint(x: CGRectGetMaxX(view.bounds) - 116.0, y: CGRectGetMinY(view.bounds) + 86.0)
+        let bezierPath = UIBezierPath(arcCenter: CGPoint(x: 50.0, y: 50.0), radius: 50.0, startAngle: 0.0, endAngle: 2.0 * CGFloat(M_PI), clockwise: true)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.frame = CGRect(x: center.x, y: center.y, width: 100.0, height: 100.0)
+        shapeLayer.path = bezierPath.CGPath
+        shapeLayer.fillColor = UIColor.redColor().CGColor
+        shapeLayer.strokeColor = UIColor.blackColor().CGColor
+        shapeLayer.lineWidth = 3.0
+        view.layer.addSublayer(shapeLayer)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("animate:"))
         tapGestureRecognizer.numberOfTapsRequired = 2

@@ -7,30 +7,3 @@
 //
 
 import Foundation
-
-protocol Hello
-{
-    func helloWorld()
-}
-
-extension Hello
-{
-    func helloWorld()
-    {
-        print("Hello World")
-    }
-}
-
-protocol HelloMars
-{
-    func helloMars()
-}
-
-extension HelloMars
-{
-    func helloMars()
-    {
-        print("Hello Mars")
-        helloMars()
-    }
-}

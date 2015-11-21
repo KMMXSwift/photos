@@ -291,7 +291,7 @@
             </objects>
             <point key="canvasLocation" x="3342" y="355"/>
         </scene>
-        <!--Item-->
+        <!--Video View Controller-->
         <scene sceneID="VeP-lb-KPO">
             <objects>
                 <viewController id="XDs-0G-cpV" customClass="VideoViewController" customModule="Test" customModuleProvider="target" sceneMemberID="viewController">
@@ -304,10 +304,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZA-rF-yCT">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="176"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="KpR-a1-PwF"/>
+                                    <constraint firstAttribute="height" constant="176" id="KpR-a1-PwF"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="olI-1O-bNh" kind="embed" identifier="VideoSegue" id="kew-tC-QP5"/>
@@ -379,7 +379,7 @@
                             <constraint firstItem="JGc-uj-Fo8" firstAttribute="leading" secondItem="RDf-m4-rIo" secondAttribute="trailing" constant="8" id="53H-j4-Vb3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kZA-rF-yCT" secondAttribute="trailing" constant="-20" id="6er-y4-wWb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GqP-Kx-NxJ" secondAttribute="trailing" constant="-20" id="B64-wk-uf0"/>
-                            <constraint firstItem="kZA-rF-yCT" firstAttribute="top" secondItem="GEi-HC-71n" secondAttribute="topMargin" id="Cy2-RZ-fVn"/>
+                            <constraint firstItem="kZA-rF-yCT" firstAttribute="top" secondItem="GEi-HC-71n" secondAttribute="topMargin" constant="64" id="Cy2-RZ-fVn"/>
                             <constraint firstItem="GqP-Kx-NxJ" firstAttribute="bottom" secondItem="GEi-HC-71n" secondAttribute="bottomMargin" id="DbJ-yI-haK"/>
                             <constraint firstItem="JGc-uj-Fo8" firstAttribute="centerY" secondItem="RDf-m4-rIo" secondAttribute="centerY" id="MRn-II-nQI"/>
                             <constraint firstItem="RDf-m4-rIo" firstAttribute="leading" secondItem="Z7e-yd-eiq" secondAttribute="trailing" constant="8" id="TmI-aa-ZNQ"/>
@@ -391,7 +391,13 @@
                             <constraint firstItem="GqP-Kx-NxJ" firstAttribute="top" secondItem="RDf-m4-rIo" secondAttribute="bottom" constant="8" id="trT-nQ-bHh"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="pBG-mh-DtL"/>
+                    <navigationItem key="navigationItem" id="wqu-bY-GLq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="SBj-2K-Q49">
+                            <connections>
+                                <action selector="shareVideo:" destination="XDs-0G-cpV" id="ucK-gA-i7U"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="kZA-rF-yCT" id="gXc-Zp-yTw"/>
                         <outlet property="playButton" destination="RDf-m4-rIo" id="EID-RC-dgs"/>
@@ -400,7 +406,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVP-jA-nNt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1112" y="-489"/>
+            <point key="canvasLocation" x="1924" y="-489"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="gh3-PC-to5">
@@ -408,7 +414,7 @@
                 <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="olI-1O-bNh" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dX-T9-SGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1786" y="-489"/>
+            <point key="canvasLocation" x="2598" y="-489"/>
         </scene>
         <!--Photos-->
         <scene sceneID="hvf-eg-Skw">
@@ -546,12 +552,32 @@
                         <segue destination="ekN-ZI-sPi" kind="relationship" relationship="viewControllers" id="3v0-om-gpd"/>
                         <segue destination="Kqy-1m-u27" kind="relationship" relationship="viewControllers" id="sL3-sZ-ZSy"/>
                         <segue destination="CLp-tq-ro0" kind="relationship" relationship="viewControllers" id="UXq-dI-jWZ"/>
-                        <segue destination="XDs-0G-cpV" kind="relationship" relationship="viewControllers" id="loe-gd-C2j"/>
+                        <segue destination="bQh-0s-d0j" kind="relationship" relationship="viewControllers" id="loe-gd-C2j"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKA-W0-NM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="300" y="355"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="9Pm-bp-Faa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bQh-0s-d0j" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="pBG-mh-DtL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y6J-Kf-Xw5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XDs-0G-cpV" kind="relationship" relationship="rootViewController" id="S1a-dj-aoD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ehj-jm-vPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1112" y="-489"/>
         </scene>
     </scenes>
     <resources>

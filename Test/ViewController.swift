@@ -10,7 +10,7 @@ import UIKit
 import MobileCoreServices
 import AVFoundation
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SecondViewControllerDelegate
 {
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
@@ -28,7 +28,25 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             let player = AVPlayer(playerItem: playerItem)
             player.play()
         }
-
+        
+        NSUserDefaults.standardUserDefaults().setObject("KMMX", forKey: "name")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if (segue.identifier == "SecondSegue")
+        {
+            let vc = segue.destinationViewController as! SecondViewController
+            vc.delegate = self
+        }
+    }
+    
+    func didSelectItem(name: String)
+    {
+        helloLabel.text = name
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("selectItem", object: nil, userInfo: ["name": name])
     }
 
     @IBAction func changeText(sender: UIButton)
