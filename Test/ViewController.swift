@@ -33,6 +33,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
+    override func viewDidAppear(animated: Bool)
+    {
+        User.getUser(1) { (user) -> () in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.helloLabel.text = "Hello, \(user.name)!"
+            })
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if (segue.identifier == "SecondSegue")

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C0EB7891C00DBD600B9C9CC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8C0EB7881C00DBD600B9C9CC /* Settings.bundle */; };
+		8C0EB78B1C00F38900B9C9CC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0EB78A1C00F38900B9C9CC /* User.swift */; };
 		8C1DE0A41BDBF707006430F1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1DE0A31BDBF707006430F1 /* SecondViewController.swift */; };
 		8C38347E1BEE557000AAD757 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C38347D1BEE557000AAD757 /* ThirdViewController.swift */; };
 		8C3834801BEE688300AAD757 /* wikipedia.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C38347F1BEE688300AAD757 /* wikipedia.plist */; };
@@ -21,6 +22,9 @@
 		8C6446421BDBD92100676F82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6446401BDBD92100676F82 /* LaunchScreen.storyboard */; };
 		8C6E8E801BE540030075C00E /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6E8E7F1BE540030075C00E /* PhotoTableViewCell.swift */; };
 		8C6E8E821BE54EA00075C00E /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6E8E811BE54EA00075C00E /* PhotoCollectionViewCell.swift */; };
+		8C7EB02E1C00F3E6001FE169 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EB02D1C00F3E6001FE169 /* Address.swift */; };
+		8C7EB0301C00F4E3001FE169 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EB02F1C00F4E3001FE169 /* Company.swift */; };
+		8C7EB0321C00F615001FE169 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EB0311C00F615001FE169 /* ConnectionManager.swift */; };
 		8C92AF351BF7B28F00615076 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C92AF341BF7B28F00615076 /* VideoViewController.swift */; };
 		8C92AF371BF7B65800615076 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C92AF361BF7B65800615076 /* Protocols.swift */; };
 		8C92AF391BF7B7F400615076 /* music.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8C92AF381BF7B7F400615076 /* music.m4a */; };
@@ -30,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		8C0EB7881C00DBD600B9C9CC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		8C0EB78A1C00F38900B9C9CC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8C1DE0A31BDBF707006430F1 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		8C38347D1BEE557000AAD757 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		8C38347F1BEE688300AAD757 /* wikipedia.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wikipedia.plist; sourceTree = "<group>"; };
@@ -45,6 +50,9 @@
 		8C6446431BDBD92100676F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C6E8E7F1BE540030075C00E /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		8C6E8E811BE54EA00075C00E /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		8C7EB02D1C00F3E6001FE169 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		8C7EB02F1C00F4E3001FE169 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		8C7EB0311C00F615001FE169 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		8C92AF341BF7B28F00615076 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		8C92AF361BF7B65800615076 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		8C92AF381BF7B7F400615076 /* music.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = music.m4a; sourceTree = "<group>"; };
@@ -101,6 +109,10 @@
 				8C38347F1BEE688300AAD757 /* wikipedia.plist */,
 				8C3834811BEE772100AAD757 /* WebViewController.swift */,
 				8C3834831BEE895400AAD757 /* MapViewController.swift */,
+				8C0EB78A1C00F38900B9C9CC /* User.swift */,
+				8C7EB02D1C00F3E6001FE169 /* Address.swift */,
+				8C7EB02F1C00F4E3001FE169 /* Company.swift */,
+				8C7EB0311C00F615001FE169 /* ConnectionManager.swift */,
 				8C92AF361BF7B65800615076 /* Protocols.swift */,
 				8C0EB7881C00DBD600B9C9CC /* Settings.bundle */,
 			);
@@ -189,13 +201,17 @@
 			files = (
 				8C6E8E801BE540030075C00E /* PhotoTableViewCell.swift in Sources */,
 				8CDE22651BE51732009D9216 /* Photo.swift in Sources */,
+				8C7EB02E1C00F3E6001FE169 /* Address.swift in Sources */,
 				8C1DE0A41BDBF707006430F1 /* SecondViewController.swift in Sources */,
 				8C92AF371BF7B65800615076 /* Protocols.swift in Sources */,
 				8C38347E1BEE557000AAD757 /* ThirdViewController.swift in Sources */,
 				8C3834841BEE895400AAD757 /* MapViewController.swift in Sources */,
 				8C64463A1BDBD92100676F82 /* ViewController.swift in Sources */,
 				8C6446381BDBD92100676F82 /* AppDelegate.swift in Sources */,
+				8C0EB78B1C00F38900B9C9CC /* User.swift in Sources */,
+				8C7EB0321C00F615001FE169 /* ConnectionManager.swift in Sources */,
 				8C6E8E821BE54EA00075C00E /* PhotoCollectionViewCell.swift in Sources */,
+				8C7EB0301C00F4E3001FE169 /* Company.swift in Sources */,
 				8C92AF351BF7B28F00615076 /* VideoViewController.swift in Sources */,
 				8C3834821BEE772100AAD757 /* WebViewController.swift in Sources */,
 			);
@@ -314,6 +330,11 @@
 				INFOPLIST_FILE = Test/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Test/Settings.bundle",
+					"$(PROJECT_DIR)/Test",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kmmx.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -327,6 +348,11 @@
 				INFOPLIST_FILE = Test/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Test/Settings.bundle",
+					"$(PROJECT_DIR)/Test",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kmmx.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
